@@ -1,6 +1,6 @@
 /**
  * Contest : Beecrowd
- * Problem : 2245 - Polígono
+ * Problem : 2445 - Polígono
  * Link    : https://judge.beecrowd.com/pt/problems/view/2445
  * Time    : O(N * logN)
  */
