@@ -1,7 +1,7 @@
 /**
  * Contest : CSES Problem Set
- * Problem : 1647 - Static Range Minimum Queries
- * Link    : https://cses.fi/problemset/task/1647
+ * Problem : 1648 - Dynamic Range Sum Queries
+ * Link    : https://cses.fi/problemset/task/1648
  * Time    : O(N * logN)
  */
 
@@ -12,11 +12,11 @@ using ll = long long;
 #define fastio ios::sync_with_stdio(0); cin.tie(0);
 
 struct SegTree {
-  vector <int> v, tree;
+  vector <ll> v, tree;
   int n;
 
   SegTree(int n) : n(n) {
-    tree.assign(4*n, 1e9);
+    tree.assign(4*n, 0);
     v.resize(n+1);
   }
 
@@ -29,8 +29,9 @@ struct SegTree {
 
     build(2 * no, l, m);
     build(2 * no + 1, m + 1, r);
-    tree[no] = min(tree[2 * no], tree[2 * no + 1]);
+    tree[no] = tree[2 * no] + tree[2 * no + 1];
   }
+
   void update(int no, int l, int r, int pos, int val) {
     if (l == r) {
       tree[no] = val;
@@ -40,15 +41,15 @@ struct SegTree {
     if (pos <= m) update(2 * no, l, m, pos, val);
     else update(2 * no + 1, m + 1, r, pos, val);
 
-    tree[no] = min(tree[2 * no], tree[2 * no + 1]);
+    tree[no] = tree[2 * no] + tree[2 * no + 1];
   }
 
-  int query(int no, int l, int r, int ql, int qr) {
-    if (l > qr || r < ql) return 1e9;
+  ll query(int no, int l, int r, int ql, int qr) {
+    if (l > qr || r < ql) return 0;
     if (l >= ql && r <= qr) return tree[no];
     int m = l + (r-l)/2;
 
-    return min(query(2 * no, l, m, ql, qr), query(2 * no + 1, m + 1, r, ql, qr));
+    return query(2 * no, l, m, ql, qr) + query(2 * no + 1, m + 1, r, ql, qr);
   }
 };
 
@@ -60,16 +61,19 @@ int main() {
 
   SegTree st(n);
   for (int i = 1; i <= n; ++i) {
-    int x; cin >> x;
+    ll x; cin >> x;
     st.v[i] = x;
   }
   st.build(1, 1, n);
 
   while (q--) {
-    int a, b;
-    cin >> a >> b;
+    int op, a, b;
+    cin >> op >> a >> b;
 
-    cout << st.query(1, 1, n, a, b) << '\n';
+    if (op == 1)
+      st.update(1, 1, n, a, b);
+    else
+      cout << st.query(1, 1, n, a, b) << '\n';
   }
 
   return 0;

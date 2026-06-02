@@ -1,7 +1,7 @@
 /**
  * Contest : CSES Problem Set
- * Problem : 1647 - Static Range Minimum Queries
- * Link    : https://cses.fi/problemset/task/1647
+ * Problem : 1649 - Dynamic Range Minimum Queries
+ * Link    : https://cses.fi/problemset/task/1649
  * Time    : O(N * logN)
  */
 
@@ -66,10 +66,13 @@ int main() {
   st.build(1, 1, n);
 
   while (q--) {
-    int a, b;
-    cin >> a >> b;
+    int op, a, b;
+    cin >> op >> a >> b;
 
-    cout << st.query(1, 1, n, a, b) << '\n';
+    if (op == 1)
+      st.update(1, 1, n, a, b);
+    else
+      cout << st.query(1, 1, n, a, b) << '\n';
   }
 
   return 0;

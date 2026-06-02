@@ -1,7 +1,7 @@
 /**
  * Contest : CSES Problem Set
- * Problem : 1647 - Static Range Minimum Queries
- * Link    : https://cses.fi/problemset/task/1647
+ * Problem : 1650 - Range Xor Queries
+ * Link    : https://cses.fi/problemset/task/1650
  * Time    : O(N * logN)
  */
 
@@ -16,7 +16,7 @@ struct SegTree {
   int n;
 
   SegTree(int n) : n(n) {
-    tree.assign(4*n, 1e9);
+    tree.resize(4*n);
     v.resize(n+1);
   }
 
@@ -29,7 +29,7 @@ struct SegTree {
 
     build(2 * no, l, m);
     build(2 * no + 1, m + 1, r);
-    tree[no] = min(tree[2 * no], tree[2 * no + 1]);
+    tree[no] = tree[2 * no] ^ tree[2 * no + 1];
   }
   void update(int no, int l, int r, int pos, int val) {
     if (l == r) {
@@ -40,15 +40,15 @@ struct SegTree {
     if (pos <= m) update(2 * no, l, m, pos, val);
     else update(2 * no + 1, m + 1, r, pos, val);
 
-    tree[no] = min(tree[2 * no], tree[2 * no + 1]);
+    tree[no] = tree[2 * no] ^ tree[2 * no + 1];
   }
 
   int query(int no, int l, int r, int ql, int qr) {
-    if (l > qr || r < ql) return 1e9;
+    if (l > qr || r < ql) return 0;
     if (l >= ql && r <= qr) return tree[no];
     int m = l + (r-l)/2;
 
-    return min(query(2 * no, l, m, ql, qr), query(2 * no + 1, m + 1, r, ql, qr));
+    return query(2 * no, l, m, ql, qr) ^ query(2 * no + 1, m + 1, r, ql, qr);
   }
 };
 
