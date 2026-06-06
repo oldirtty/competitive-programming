@@ -20,12 +20,10 @@ int main() {
   for (auto& i : v) cin >> i;
   sort(v.begin(), v.end());
 
-  ll sum = v[0] + v[1];
-  ll maxi = 0, cnt = 0;
-  for (int i = 2; i < n; ++i) {
-    if (sum > v[i])
-      maxi = max(maxi, i+1LL);
-    
+  ll sum = 0, maxi = 0, cnt = 0;
+  for (int i = 0; i < n; ++i) {
+    if (v[i] < sum)
+      maxi = i+1;
     sum += v[i];
   }
 

@@ -2,7 +2,7 @@
  * Contest : Beecrowd
  * Problem : 3351 - Clickbait
  * Link    : https://judge.beecrowd.com/pt/problems/view/3351
- * Time    : O(N logK)
+ * Time    : O(N * logK)
  */
 
 #include <bits/stdc++.h>
