@@ -62,7 +62,8 @@ int main() {
     cin >> op >> a >> b;
 
     queries.emplace_back(op,a,b);
-    if (op == '!') coords.add(b);
+    if (op == '?') coords.add(a);
+    coords.add(b);
   }
 
   coords.build();
