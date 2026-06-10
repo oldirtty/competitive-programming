@@ -2,6 +2,7 @@
  * Contest : Beecrowd
  * Problem : 1391 - Quase menor caminho
  * Link    : https://judge.beecrowd.com/pt/problems/view/1391
+ * Time    : O((N + M) logN)
  */
 
 #include <bits/stdc++.h>
@@ -9,87 +10,76 @@ using namespace std;
 using ll = long long;
 
 #define fastio ios::sync_with_stdio(0); cin.tie(0);
-typedef pair<int, int> pii;
 
+const int INF = 1e9;
+vector<vector<pair<int,int>>> graph, rev;
+set<pair<int,int>> used;
+vector<int> dist;
 int n, m, s, d;
-const int INF = INT_MAX;
-vector<vector<int>> adj;
-vector<int> previous, dist;
-vector<bool> visited;
 
 int dijkstra(int s) {
   dist.assign(n, INF);
-  previous.assign(n, -1);
-  visited.assign(n, false);
-  priority_queue<pii> q;
+  priority_queue<pair<int, int>> pq;
 
-  previous[s] = s;
   dist[s] = 0;
-  q.push({0, s});
+  pq.push({0, s});
 
-  while (!q.empty()) {
-    int curr = q.top().second;
-    q.pop();
+  while (!pq.empty()) {
+    auto [du, u] = pq.top();
+    pq.pop();
 
-    if (visited[curr]) continue;
-    visited[curr] = true;
+    if (-du > dist[u]) continue;
 
-    for (int v = 0; v < n; v++) {
-      int w = adj[curr][v];
-      if (w && dist[curr] + w < dist[v]) {
-        previous[v] = curr;
-        dist[v] = dist[curr] + w;
-        q.push({-dist[v], v});
+    for (auto& [v,w] : graph[u]) {
+      if (used.count({u,v})) continue;
+
+      if (dist[u]+w < dist[v]) {
+        dist[v] = dist[u]+w;
+        pq.emplace(-dist[v], v);
       }
     }
   }
-
   return dist[d];
 }
 
-void removeEdges(int no) {
-  if (previous[no] == -1) return;
+void bfs(int src) {
+  queue<int> q;
+  q.push(src);
 
-  while (no != previous[no]) {
-    fprintf(stderr, "removido %i -> %i\n", previous[no], no);
-    adj[previous[no]][no] = 0;
-    no = previous[no];
+  while (!q.empty()) {
+    int u = q.front();
+    q.pop();
+
+    for (auto& [v,w] : rev[u]) {
+      if (dist[v]+w == dist[u]) {
+        q.push(v);
+        used.emplace(v, u);
+      }
+    }
   }
-  adj[previous[no]][no] = 0;
 }
 
 int main() {
   fastio
 
   while (cin >> n >> m, n) {
-    adj.assign(n, vector<int>(n, 0));
+    graph.assign(n, {});
+    rev.assign(n, {});
 
     cin >> s >> d;
 
     int u, v, p;
     while (m--) {
       cin >> u >> v >> p;
-      adj[u][v] = p;
+      graph[u].emplace_back(v,p);
+      rev[v].emplace_back(u,p);
     }
+    int sp = dijkstra(s);
+    bfs(d);
+    sp = dijkstra(s);
 
-    int menor, ans;
-    menor = ans = dijkstra(s);
-
-    // remover nós que formam menor caminho
-    while (ans == menor) {
-      cerr << "previous:\n";
-      for (auto &i : previous) cerr << i << " ";
-      cerr << "\n";
-      removeEdges(d);
-      ans = dijkstra(s);
-
-      if (ans == INF || previous[d] == -1) {
-        ans = -1;
-        break;
-      }
-    }
-
-    cout << ans << "\n";
+    cout << (sp!=INF? sp : -1) << '\n';
+    used.clear();
   }
 
   return 0;
