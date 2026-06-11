@@ -2,6 +2,7 @@
  * Contest : OBI 2011 - Fase 2
  * Problem : Balé
  * Link    : https://neps.academy/br/exercise/536
+ * Time    : O(N logN)
  */
 
 #include <bits/stdc++.h>
