@@ -2,7 +2,7 @@
  * Contest : CSES Problem Set
  * Problem : 1649 - Dynamic Range Minimum Queries
  * Link    : https://cses.fi/problemset/task/1649
- * Time    : O(N * logN)
+ * Time    : O(N logN)
  */
 
 #include <bits/stdc++.h>

@@ -2,7 +2,7 @@
  * Contest : CSES Problem Set
  * Problem : 2134 - Path Queries II
  * Link    : https://cses.fi/problemset/task/2134
- * Time    : O(N * logN)
+ * Time    : O(N logN)
  */
 
 #include <bits/stdc++.h>

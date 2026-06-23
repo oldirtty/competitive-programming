@@ -2,7 +2,7 @@
  * Contest : CSES Problem Set
  * Problem : 1648 - Dynamic Range Sum Queries
  * Link    : https://cses.fi/problemset/task/1648
- * Time    : O(N * logN)
+ * Time    : O(N logN)
  */
 
 #include <bits/stdc++.h>

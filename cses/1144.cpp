@@ -2,7 +2,7 @@
  * Contest : CSES Problem Set
  * Problem : 1144 - Salary Queries
  * Link    : https://cses.fi/problemset/task/1144
- * Time    : O(N * logN)
+ * Time    : O(N logN)
  */
 
 #include <bits/stdc++.h>

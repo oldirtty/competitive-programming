@@ -1,8 +1,8 @@
 /**
  * Contest : CSES Problem Set
  * Problem : 1686 - Coin Collector
- * Link    : https://cses.fi/problemset/task/1686
- * Time    : O(N + M) 
+* Link    : https://cses.fi/problemset/task/1686
+* Time    : O(???)
  */
 
 #include <bits/stdc++.h>
@@ -11,58 +11,60 @@ using ll = long long;
 
 #define fastio ios::sync_with_stdio(0); cin.tie(0);
 
-vector<vector<ll>> adj, revAdj;
-vector<ll> c, order;
-bitset<10'0001> visited;
-ll n, m, sum;
+int n;
+vector<vector<int>> capacity;
+vector<vector<int>> adj;
 
-void topo(int u) {
-  visited[u] = true;
-  for (auto& v : adj[u])
-    if (!visited[v])
-      topo(v);
-  order.push_back(u);
+int bfs(int s, int t, vector<int>& parent) {
+  fill(parent.begin(), parent.end(), -1);
+  parent[s] = -2;
+  queue<pair<int, int>> q;
+  q.push({s, INF});
+
+  while (!q.empty()) {
+    int cur = q.front().first;
+    int flow = q.front().second;
+    q.pop();
+
+    for (int next : adj[cur]) {
+      if (parent[next] == -1 && capacity[cur][next]) {
+        parent[next] = cur;
+        int new_flow = min(flow, capacity[cur][next]);
+        if (next == t)
+            return new_flow;
+        q.push({next, new_flow});
+      }
+    }
+  }
+
+  return 0;
 }
 
-void dfs(int u) {
-  visited[u] = true;
-  sum += c[u];
-  for (auto& v : revAdj[u])
-    if (!visited[v])
-      dfs(v);
+int maxflow(int s, int t) {
+  int flow = 0;
+  vector<int> parent(n);
+  int new_flow;
+
+  while (new_flow = bfs(s, t, parent)) {
+    flow += new_flow;
+    int cur = t;
+    while (cur != s) {
+      int prev = parent[cur];
+      capacity[prev][cur] -= new_flow;
+      capacity[cur][prev] += new_flow;
+      cur = prev;
+    }
+  }
+
+  return flow;
 }
 
 int main() {
   fastio
 
-  cin >> n >> m;
-  c.assign(n+1, -1);
+  int n, m;
   adj.assign(n+1, {});
-  revAdj.assign(n+1, {});
-
-  for (int i = 1; i <= n; ++i) cin >> c[i];
-
-  while (m--) {
-    ll a, b;
-    cin >> a >> b;
-    adj[a].push_back(b);
-    revAdj[b].push_back(a);
-  }
-
-  for (int i = 1; i <= n; ++i)
-    if (!visited[i])
-      topo(i);
-  reverse(order.begin(), order.end());
-  visited.reset();
-
-  ll maxi = 0;
-  for (auto& u : order) 
-    if (!visited[u]) {
-      sum = 0;
-      dfs(u);
-      maxi = max(maxi, sum);
-    }
-  cout << maxi << '\n';
+ for (int i = 1; )
 
   return 0;
 }

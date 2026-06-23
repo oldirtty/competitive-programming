@@ -11,7 +11,6 @@ using ll = long long;
 
 #define fastio ios::sync_with_stdio(0); cin.tie(0);
 
-
 int main() {
   fastio
 
@@ -19,21 +18,21 @@ int main() {
   int n, q;
   cin >> n >> q;
 
-  vector<vector<int>> boss(LOG, vector<int> (n+1, -1));
-  for (int i = 2; i <= n; ++i) cin >> boss[0][i];
+  vector<vector<int>> boss(n+1, vector<int>(LOG+1, 0));
+  for (int i = 2; i <= n; ++i)
+    cin >> boss[i][0];
 
-  // Precomputesssss
-  for (int k = 1; k < LOG; ++k) 
-    for (int i = 1; i <= n; ++i) 
-      boss[k][i] = boss[k-1][boss[k-1][i]];
+  for (int k = 1; k <= LOG; ++k)
+    for (int i = 1; i <= n; ++i)
+      boss[i][k] = boss[boss[i][k-1]][k-1];
 
   while (q--) {
     int x, k;
     cin >> x >> k;
 
-    for (int i = 0; i < LOG; ++i) 
+    for (int i = 0; i <= LOG; ++i)
       if (k & (1 << i))
-        x = boss[i][x];
+        x = boss[x][i];
 
     cout << (x>0? x : -1) << '\n';
   }
