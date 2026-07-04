@@ -2,6 +2,7 @@
  * Contest : CSES Problem Set
  * Problem : 1163 - Traffic Lights
  * Link    : https://cses.fi/problemset/task/1163
+ * Time    : O(N logN)
  */
 
 #include <bits/stdc++.h>

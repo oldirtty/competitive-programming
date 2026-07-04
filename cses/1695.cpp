@@ -70,7 +70,7 @@ int main() {
 
   cin >> n >> m;
   adj.assign(n+1, {});
-  cap.assign(n+1, vector<ll> (n+1));
+  cap.assign(n+1, vector<ll>(n+1));
   visited.assign(n+1, false);
 
   while (m--) {

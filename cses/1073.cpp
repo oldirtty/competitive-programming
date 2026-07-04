@@ -2,6 +2,7 @@
  * Contest : CSES Problem Set
  * Problem : 1073 - Towers
  * Link    : https://cses.fi/problemset/task/1073
+ * Time    : O(N logN)
  */
 
 #include <bits/stdc++.h>

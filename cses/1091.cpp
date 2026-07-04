@@ -2,6 +2,7 @@
  * Contest : CSES Problem Set
  * Problem : 1091 - Concert Tickets
  * Link    : https://cses.fi/problemset/task/1091
+ * Time    : O(K logN)
  */
 
 #include <bits/stdc++.h>
@@ -13,23 +14,24 @@ using ll = long long;
 int main() {
   fastio
 
-  ll n, m, x;
-  cin >> n >> m;
+  ll n, k, x;
+  cin >> n >> k;
 
-  multiset<ll> prices;
+  multiset<ll> v;
   for (int i = 0; i < n; ++i) {
     cin >> x;
-    prices.insert(x);
+    v.insert(x);
   }
 
-  while (m--) {
+  for (int i = 0; i < k; ++i) {
     cin >> x;
-    auto it = prices.upper_bound(x);
+    auto it = v.upper_bound(x);
 
-    if (it == prices.begin()) cout << -1 << '\n';
+    if (it == v.begin())
+      cout << "-1\n";
     else {
       cout << *(--it) << '\n';
-      prices.erase(it);
+      v.erase(it);
     }
   }
 

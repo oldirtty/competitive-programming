@@ -2,6 +2,7 @@
  * Contest : CSES Problem Set
  * Problem : 1643 - Maximum Subarray Sum
  * Link    : https://cses.fi/problemset/task/1643
+ * Time    : O(???)
  */
 
 #include <bits/stdc++.h>
@@ -13,13 +14,15 @@ using ll = long long;
 int main() {
   fastio
 
-  ll n; cin >> n;
-  vector<ll> a(n), dp(n + 1);
-  for (auto &i : a) cin >> i;
+  int n; cin >> n;
 
-  ll ans = -1e18;
-  for (int i = 1; i <= n; i++) {
-    dp[i] = max(dp[i - 1] + a[i - 1], a[i - 1]);
+  vector<ll> v(n), dp(n, 0);
+  for (auto& i : v) cin >> i;
+
+  ll ans;
+  ans = dp[0] = v[0];
+  for (int i = 1; i < n; ++i) {
+    dp[i] = max(dp[i - 1] + v[i], v[i]);
     ans = max(ans, dp[i]);
   }
   cout << ans << '\n';

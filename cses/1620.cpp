@@ -2,6 +2,7 @@
  * Contest : CSES Problem Set
  * Problem : 1620 - Factory Machines
  * Link    : https://cses.fi/problemset/task/1620
+ * Time    : O(N logN)
  */
 
 #include <bits/stdc++.h>
@@ -10,7 +11,7 @@ using ll = long long;
 
 #define fastio ios::sync_with_stdio(0); cin.tie(0);
 
-vector<ll> machines(2e5 + 1);
+vector<ll> machines;
 ll n, t;
 
 bool isValid(ll time) {
@@ -29,7 +30,8 @@ ll bs() {
   while (l <= r) {
     ll mid = l + (r - l) / 2;
 
-    if (isValid(mid)) r = mid - 1;
+    if (isValid(mid))
+      r = mid - 1;
     else
       l = mid + 1;
   }
@@ -40,7 +42,8 @@ int main() {
   fastio
 
   cin >> n >> t;
-  for (int i = 0; i < n; ++i) cin >> machines[i];
+  machines.resize(n);
+  for (auto& i : machines) cin >> i;
   cout << bs() << '\n';
 
   return 0;

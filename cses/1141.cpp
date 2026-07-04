@@ -2,6 +2,7 @@
  * Contest : CSES Problem Set
  * Problem : 1141 - Playlist
  * Link    : https://cses.fi/problemset/task/1141
+ * Time    : O(N logN)
  */
 
 #include <bits/stdc++.h>
@@ -15,10 +16,10 @@ int main() {
 
   int n; cin >> n;
   vector<int> songs(n);
-  for (auto &i : songs) cin >> i;
+  for (auto& i : songs) cin >> i;
 
-  set<int> id;
   int ans = 0;
+  set<int> id;
   for (int l = 0, r = 0; l < n; ++l) {
     while (r < n) {
       ans = max(ans, (int)id.size());

@@ -5,7 +5,6 @@
  */
 
 #include <bits/stdc++.h>
-#include <vector>
 using namespace std;
 using ll = long long;
 
@@ -29,7 +28,7 @@ ll bellman_ford(int src) {
       if (d[e.a] != -INF && d[e.a] + e.c > d[e.b]) {
         d[e.b] = d[e.a] + e.c;
 
-        if (i == n-1) 
+        if (i == n-1)
           cycle.push_back(e.b);
       }
     }
@@ -57,7 +56,7 @@ int main() {
   cin >> n >> m;
   visited.assign(n+1, false);
   adj.assign(n+1, {});
-  
+
   while (m--) {
     ll a, b, c;
     cin >> a >> b >> c;

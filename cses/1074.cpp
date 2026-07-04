@@ -2,6 +2,7 @@
  * Contest : CSES Problem Set
  * Problem : 1074 - Stick Lengths
  * Link    : https://cses.fi/problemset/task/1074
+ * Time    : O(N logN)
  */
 
 #include <bits/stdc++.h>
@@ -13,14 +14,16 @@ using ll = long long;
 int main() {
   fastio
 
-  ll n; cin >> n;
-  vector<ll> sticks(n);
-  for (auto &i : sticks) cin >> i;
+  int n; cin >> n;
 
-  sort(sticks.begin(), sticks.end());
-  ll median = sticks[n / 2], ans = 0;
+  vector<ll> v(n);
+  for (auto &i : v) cin >> i;
 
-  for (auto &i : sticks) ans += abs(median - i);
+  sort(v.begin(), v.end());
+  ll ans = 0, median = v[n / 2];
+  for (auto &i : v)
+    ans += abs(i - median);
+
   cout << ans << '\n';
 
   return 0;

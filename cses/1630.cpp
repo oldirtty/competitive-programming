@@ -2,6 +2,7 @@
  * Contest : CSES Problem Set
  * Problem : 1630 - Tasks and Deadlines
  * Link    : https://cses.fi/problemset/task/1630
+ * Time    : O(N)
  */
 
 #include <bits/stdc++.h>
@@ -14,9 +15,10 @@ int main() {
   fastio
 
   int n; cin >> n;
-  vector<pair<ll, ll>> tasks(n);
 
-  for (auto &[t, d] : tasks) cin >> t >> d;
+  vector<pair<ll, ll>> tasks(n);
+  for (auto &[t, d] : tasks)
+    cin >> t >> d;
   sort(tasks.begin(), tasks.end());
 
   ll time = 0, ans = 0;

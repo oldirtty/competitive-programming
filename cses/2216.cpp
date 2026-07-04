@@ -2,6 +2,7 @@
  * Contest : CSES Problem Set
  * Problem : 2216 - Collecting Numbers
  * Link    : https://cses.fi/problemset/task/2216
+ * Time    : O(N logN)
  */
 
 #include <bits/stdc++.h>
@@ -14,16 +15,22 @@ int main() {
   fastio
 
   ll n; cin >> n;
-  vector<ll> pos(n);
-  for (int i = 0; i < n; ++i) {
-    ll x; cin >> x;
-    pos[x] = i;
+  vector<ll> v(n);
+
+  map<ll, ll> freq;
+  for (int i = 1; i <= n; ++i) freq[i] = 0;
+
+  ll cnt = 1;
+  for (auto& i : v) {
+    cin >> i;
+
+    if (freq[i-1] == 0)
+      freq[i] = cnt++;
+    else
+      freq[i] = freq[i-1];
   }
 
-  ll ans = 1;
-  for (int i = 2; i <= n; ++i)
-    if (pos[i] < pos[i - 1]) ans++;
-  cout << ans << '\n';
+  cout << cnt-1 << '\n';
 
   return 0;
 }

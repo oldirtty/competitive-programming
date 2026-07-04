@@ -2,6 +2,7 @@
  * Contest : CSES Problem Set
  * Problem : 1090 - Ferris Wheel
  * Link    : https://cses.fi/problemset/task/1090
+ * Time    : O(N)
  */
 
 #include <bits/stdc++.h>
@@ -13,19 +14,20 @@ using ll = long long;
 int main() {
   fastio
 
-  ll n, x;
-  cin >> n >> x;
+  int n, max;
+  cin >> n >> max;
 
-  vector<ll> w(n);
-  for (auto &i : w) cin >> i;
-  sort(w.begin(), w.end());
+  vector<int> v(n);
+  for (auto& i : v) cin >> i;
 
-  int i = 0, j = n - 1, ans = 0;
+  sort(v.begin(), v.end());
+
+  int cnt = 0, i = 0, j = n - 1;
   while (i <= j) {
-    if (w[i] + w[j] <= x) i++;
-    j--, ans++;
+    if (v[i] + v[j] <= max) i++;
+    cnt++, j--;
   }
-  cout << ans << '\n';
+  cout << cnt << '\n';
 
   return 0;
 }

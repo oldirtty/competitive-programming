@@ -12,10 +12,11 @@ using ll = long long;
 #define all(v) v.begin(), v.end()
 
 ll n, k;
-vector<ll> v(2e5 + 1);
+vector<ll> v;
 
 bool valid(ll x) {
   ll cnt = 1, sum = 0;
+
   for (int i = 0; i < n; ++i) {
     sum += v[i];
     if (sum > x) {
@@ -23,7 +24,6 @@ bool valid(ll x) {
       cnt++;
     }
   }
-
   return cnt <= k;
 }
 
@@ -32,9 +32,10 @@ ll bs() {
      r = accumulate(all(v), 1LL);
 
   while (l <= r) {
-    ll mid = l + (r - l) / 2;
+    ll mid = l + (r-l)/2;
 
-    if (valid(mid)) r = mid - 1;
+    if (valid(mid))
+      r = mid - 1;
     else
       l = mid + 1;
   }
@@ -45,7 +46,8 @@ int main() {
   fastio
 
   cin >> n >> k;
-  for (int i = 0; i < n; ++i) cin >> v[i];
+  v.resize(n);
+  for (auto& i : v) cin >> i;
   cout << bs() << '\n';
 
   return 0;

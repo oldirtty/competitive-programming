@@ -19,7 +19,8 @@ int main() {
 
   for (int i = 2; i <= n; ++i) {
     int left = i - 1;
-    while (v[left] >= v[i]) left = smallest[left];
+    while (v[left] >= v[i])
+      left = smallest[left];
 
     smallest[i] = left;
   }

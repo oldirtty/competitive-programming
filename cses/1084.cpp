@@ -2,10 +2,10 @@
  * Contest : CSES Problem Set
  * Problem : 1084 - Apartments
  * Link    : https://cses.fi/problemset/task/1084
+ * Time    : O(N)
  */
 
 #include <bits/stdc++.h>
-#include <ios>
 using namespace std;
 using ll = long long;
 
@@ -17,22 +17,24 @@ int main() {
   ll n, m, k;
   cin >> n >> m >> k;
 
-  vector<ll> desired(n), ap(m);
-  for (auto &i : desired) cin >> i;
-  for (auto &i : ap) cin >> i;
+  vector<ll> a(n), b(m);
+  for (auto& i : a) cin >> i;
+  for (auto& i : b) cin >> i;
 
-  sort(desired.begin(), desired.end());
-  sort(ap.begin(), ap.end());
+  sort(a.begin(), a.end());
+  sort(b.begin(), b.end());
 
-  ll i = 0, j = 0, ans = 0;
+  int cnt = 0, i = 0, j = 0;
   while (i < n && j < m) {
-    if (ap[j] < desired[i] - k) j++;
-    else if (ap[j] > desired[i] + k) i++;
-    else {
-      i++, j++, ans++;
-    }
+    if (b[j] < a[i] - k)
+      j++;
+    else if (b[j] > a[i] + k)
+      i++;
+    else
+      cnt++, i++, j++;
   }
-  cout << ans << '\n';
+
+  cout << cnt << '\n';
 
   return 0;
 }

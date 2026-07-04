@@ -2,6 +2,7 @@
  * Contest : CSES Problem Set
  * Problem : 1629 - Movie Festival
  * Link    : https://cses.fi/problemset/task/1629
+ * Time    : O(N)
  */
 
 #include <bits/stdc++.h>
@@ -14,23 +15,19 @@ int main() {
   fastio
 
   ll n; cin >> n;
-  vector<pair<ll, ll>> movies(n);
 
-  for (int i = 0; i < n; ++i) {
-    ll a, b;
-    cin >> a >> b;
-    movies[i] = {b, a};
-  }
-  sort(movies.begin(), movies.end());
+  vector<pair<ll,ll>> v(n);
+  for (auto& [a,b] : v) cin >> b >> a;
+  sort(v.begin(), v.end());
 
-  ll ending = movies.front().first, ans = 1;
-  for (auto &[end, st] : movies) {
-    if (st >= ending) {
-      ending = end;
-      ans++;
+  ll curr = v[0].first, cnt = 1;
+  for (int i = 1; i < n; ++i) {
+    if (v[i].second >= curr) {
+      curr = v[i].first;
+      cnt++;
     }
   }
-  cout << ans << '\n';
+  cout << cnt << '\n';
 
   return 0;
 }

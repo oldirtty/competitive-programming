@@ -2,6 +2,7 @@
  * Contest : CSES Problem Set
  * Problem : 2162 - Josephus Problem I
  * Link    : https://cses.fi/problemset/task/2162
+ * Time    : O(N logN)
  */
 
 #include <bits/stdc++.h>

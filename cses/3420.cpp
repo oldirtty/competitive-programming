@@ -2,6 +2,7 @@
  * Contest : CSES Problem Set
  * Problem : 3420 - Distinct Values Subarrays
  * Link    : https://cses.fi/problemset/task/3420
+ * Time    : O(N)
  */
 
 #include <bits/stdc++.h>
@@ -13,19 +14,23 @@ using ll = long long;
 int main() {
   fastio
 
-  int n; cin >> n;
-  vector<int> arr(n);
-  for (auto &i : arr) cin >> i;
+  ll n; cin >> n;
 
-  set<int> s;
-  ll ans = 0;
-  for (int l = 0, r = 0; l < n;) {
-    while (r < n && !s.count(arr[r])) s.insert(arr[r++]);
+  vector<ll> v(n);
+  for (auto &i : v) cin >> i;
+  set<ll> s;
 
-    ans += r - l;
-    s.erase(arr[l++]);
+  ll cnt = 0;
+  for (int l = 0, r = 0; l < n; ++l) {
+    while (r < n) {
+      if (s.count(v[r])) break;
+      s.insert(v[r++]);
+    }
+
+    cnt += r - l;
+    s.erase(v[l]);
   }
-  cout << ans << '\n';
+  cout << cnt << '\n';
 
   return 0;
 }
