@@ -12,23 +12,23 @@ using ll = long long;
 const ll M = 1e9 + 7;
 
 int main() {
-  fastio
+    fastio
 
-  ll n; cin >> n;
-  ll ans = 1;
+    ll n; cin >> n;
+    ll ans = 1;
 
-  vector<ll> num(sqrt(n), 1);
-  for (ll i = 2; i * i < n; ++i) {
-    if (i != num[i]) {
-      ll j = i;
-      while (j < num.size()) {
-        num[j] *= j / i + 1;
-        j += i;
-      }
+    vector<ll> num(sqrt(n), 1);
+    for (ll i = 2; i * i < n; ++i) {
+        if (i != num[i]) {
+            ll j = i;
+            while (j < num.size()) {
+                num[j] *= j / i + 1;
+                j += i;
+            }
+        }
     }
-  }
 
-  cout << ans << '\n';
+    cout << ans << '\n';
 
-  return 0;
+    return 0;
 }

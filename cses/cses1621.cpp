@@ -6,21 +6,20 @@
 
 #include <bits/stdc++.h>
 using namespace std;
-using ll = long long;
 
 #define fastio ios::sync_with_stdio(0); cin.tie(0);
 
 int main() {
-  fastio
+    fastio
 
-  ll n, x; cin >> n;
-  set<ll> s;
-  for (int i = 0; i < n; i++) {
-    cin >> x;
-    s.insert(x);
-  }
+    ll n, x; cin >> n;
+    set<ll> s;
+    for (int i = 0; i < n; i++) {
+        cin >> x;
+        s.insert(x);
+    }
 
-  cout << (ll)s.size() << '\n';
+    cout << (ll)s.size() << '\n';
 
-  return 0;
+    return 0;
 }
