@@ -1,0 +1,39 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+#define dbg(...) __f(#__VA_ARGS__, __VA_ARGS__)
+#define endl '\n'
+
+template <typename Arg1>
+void __f(const char* name, Arg1&& arg1) {
+    cout << name << " : " << arg1 << endl;
+}
+template <typename Arg1, typename... Args>
+void __f(const char* names, Arg1&& arg1, Args&&... args) {
+    const char* comma = strchr(names + 1, ',');
+    cout.write(names, comma - names) << " : " << arg1 << " | ";
+    __f(comma + 1, args...);
+}
+
+void solve() {
+    int a, b, c;
+    cin >> a >> b >> c;
+    int v[] = {a, b, c};
+    sort(v, v + 3);
+    int x = v[1];
+
+    cout << 2026 - x << endl;
+}
+
+int32_t main() {
+    ios_base::sync_with_stdio(0); cin.tie(0);
+    clock_t z = clock();
+
+    int t = 1;
+    // cin >> t;
+    while (t--) solve();
+
+    cerr << "Run Time : " << ((double)(clock() - z) / CLOCKS_PER_SEC) << "s" << endl;
+
+    return 0;
+}
