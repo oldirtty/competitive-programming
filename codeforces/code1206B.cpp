@@ -1,7 +1,7 @@
 /**
- * Contest : Codeforces Round 797 (Div. 3)
- * Problem : 1690D. Black and White Stripe
- * Link    : https://codeforces.com/problemset/problem/1690/D
+ * Contest : Codeforces Round 580 (Div. 2)
+ * Problem : 1206B. Make Product Equal One
+ * Link    : https://codeforces.com/problemset/problem/1206/B
  */
 
 #include <bits/stdc++.h>
@@ -9,6 +9,7 @@ using namespace std;
 
 #define dbg(...) __f(#__VA_ARGS__, __VA_ARGS__)
 #define endl '\n'
+#define int long long
 
 template <typename Arg1>
 void __f(const char* name, Arg1&& arg1) {
@@ -22,19 +23,17 @@ void __f(const char* names, Arg1&& arg1, Args&&... args) {
 }
 
 void solve() {
-    int n, k;
-    cin >> n >> k;
+    int n; cin >> n;
 
-    vector<int> pref(n + 1);
-    for (int i = 1; i <= n; ++i) {
-        char c; cin >> c;
-        pref[i] = pref[i - 1] + (c == 'W');
+    int ans = 0, cntNegative = 0, cntZero = 0;
+    vector<int> v(n);
+    for (auto& i : v) {
+        cin >> i;
+        if (i < 0) cntNegative++;
+        else if (i == 0) cntZero++;
+        if (abs(i) != 1) ans += abs(abs(i) - 1);
     }
-
-    int ans = k;
-    for (int i = k; i <= n; ++i) {
-        ans = min(ans, pref[i] - pref[i - k]);
-    }
+    if ((cntNegative & 1) && !cntZero) ans += 2;
     cout << ans << endl;
 }
 
@@ -43,7 +42,7 @@ int32_t main() {
     clock_t z = clock();
 
     int t = 1;
-    cin >> t;
+    // cin >> t;
     while (t--) solve();
 
     cerr << "Run Time : " << ((double)(clock() - z) / CLOCKS_PER_SEC) << "s" << endl;

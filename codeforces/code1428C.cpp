@@ -1,7 +1,7 @@
 /**
- * Contest : Codeforces Round 797 (Div. 3)
- * Problem : 1690D. Black and White Stripe
- * Link    : https://codeforces.com/problemset/problem/1690/D
+ * Contest : Codeforces Raif Round 1 (Div. 1 + Div. 2)
+ * Problem : 1428C. ABBB
+ * Link    : https://codeforces.com/problemset/problem/1428/C
  */
 
 #include <bits/stdc++.h>
@@ -22,20 +22,16 @@ void __f(const char* names, Arg1&& arg1, Args&&... args) {
 }
 
 void solve() {
-    int n, k;
-    cin >> n >> k;
+    string s; cin >> s;
+    stack<char> st;
 
-    vector<int> pref(n + 1);
-    for (int i = 1; i <= n; ++i) {
-        char c; cin >> c;
-        pref[i] = pref[i - 1] + (c == 'W');
+    st.push(s[0]);
+    for (int i = 1; i < s.size(); ++i) {
+        if (s[i] == 'B' && !st.empty()) st.pop();
+        else st.push(s[i]);
     }
 
-    int ans = k;
-    for (int i = k; i <= n; ++i) {
-        ans = min(ans, pref[i] - pref[i - k]);
-    }
-    cout << ans << endl;
+    cout << st.size() << endl ;
 }
 
 int32_t main() {

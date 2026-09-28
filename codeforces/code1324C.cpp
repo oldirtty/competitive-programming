@@ -1,7 +1,7 @@
 /**
- * Contest : Codeforces Round 797 (Div. 3)
- * Problem : 1690D. Black and White Stripe
- * Link    : https://codeforces.com/problemset/problem/1690/D
+ * Contest : Codeforces Round 627 (Div. 3)
+ * Problem : 1324C. Frog Jumps
+ * Link    : https://codeforces.com/problemset/problem/1324/C
  */
 
 #include <bits/stdc++.h>
@@ -22,20 +22,17 @@ void __f(const char* names, Arg1&& arg1, Args&&... args) {
 }
 
 void solve() {
-    int n, k;
-    cin >> n >> k;
-
-    vector<int> pref(n + 1);
-    for (int i = 1; i <= n; ++i) {
-        char c; cin >> c;
-        pref[i] = pref[i - 1] + (c == 'W');
+    string s; cin >> s;
+    int n = s.size();
+    int last = 0, d = 0;
+    for (int i = 1; i <= n; i++) {
+        if (s[i - 1] == 'R') {
+            d = max(d, i - last);
+            last = i;
+        }
     }
-
-    int ans = k;
-    for (int i = k; i <= n; ++i) {
-        ans = min(ans, pref[i] - pref[i - k]);
-    }
-    cout << ans << endl;
+    d = max(d, n + 1 - last);
+    cout << d << endl;
 }
 
 int32_t main() {
