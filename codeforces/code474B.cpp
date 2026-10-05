@@ -1,7 +1,7 @@
 /**
- * Contest : Codeforces Round 1013 (Div. 3)
- * Problem : 2091D. Place of the Olympiad
- * Link    : https://codeforces.com/problemset/problem/2091/D
+ * Contest : Codeforces Round 271 (Div. 2)
+ * Problem : 474B. Worms
+ * Link    : https://codeforces.com/problemset/problem/474/B
  */
 
 #include <bits/stdc++.h>
@@ -9,7 +9,6 @@ using namespace std;
 
 #define dbg(...) __f(#__VA_ARGS__, __VA_ARGS__)
 #define endl '\n'
-#define int long long
 
 template <typename Arg1>
 void __f(const char* name, Arg1&& arg1) {
@@ -22,32 +21,20 @@ void __f(const char* names, Arg1&& arg1, Args&&... args) {
     __f(comma + 1, args...);
 }
 
-int n, m, k;
-
-bool valid(int x) {
-    return n * (x * (m / (x + 1)) + m % (x + 1)) >= k;
-}
-
-int bs() {
-    int l = 1, r = m;
-
-    while (l <= r) {
-        int mid = l + (r - l) / 2;
-
-        if (valid(mid)) {
-            r = mid - 1;
-        }
-        else {
-            l = mid + 1;
-        }
+void solve() {
+    int n; cin >> n;
+    vector<int> worms(n + 1);
+    for (int i = 1; i <= n; ++i) {
+        cin >> worms[i];
+        worms[i] += worms[i - 1];
     }
 
-    return l;
-}
-
-void solve() {
-    cin >> n >> m >> k;
-    cout << bs() << endl;
+    int q; cin >> q;
+    while (q--) {
+        int x; cin >> x;
+        auto i = lower_bound(worms.begin(), worms.end(), x) - worms.begin();
+        cout << i << endl;
+    }
 }
 
 int32_t main() {
@@ -55,7 +42,7 @@ int32_t main() {
     clock_t z = clock();
 
     int t = 1;
-    cin >> t;
+    // cin >> t;
     while (t--) solve();
 
     cerr << "Run Time : " << ((double)(clock() - z) / CLOCKS_PER_SEC) << "s" << endl;

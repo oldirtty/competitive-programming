@@ -1,7 +1,8 @@
 /**
- * Contest : Codeforces Round 171 (Div. 2)
- * Problem : 279B. Books
- * Link    : https://codeforces.com/problemset/problem/279/B
+ * Contest : Codeforces Global Round 16
+ * Problem : 1566A. Median Maximization
+ * Link    : https://codeforces.com/problemset/problem/1566/A
+ * Time    : O(???)
  */
 
 #include <bits/stdc++.h>
@@ -9,33 +10,28 @@ using namespace std;
 
 #define dbg(...) __f(#__VA_ARGS__, __VA_ARGS__)
 #define endl '\n'
-#define int long long
 
 template <typename Arg1>
 void __f(const char* name, Arg1&& arg1) {
-    cout << name << " : " << arg1 << endl;
+    cerr << name << " : " << arg1 << endl;
 }
 template <typename Arg1, typename... Args>
 void __f(const char* names, Arg1&& arg1, Args&&... args) {
     const char* comma = strchr(names + 1, ',');
-    cout.write(names, comma - names) << " : " << arg1 << " | ";
+    cerr.write(names, comma - names) << " : " << arg1 << " | ";
     __f(comma + 1, args...);
 }
 
 void solve() {
-    int n, t;
-    cin >> n >> t;
-    int a[n];
-    for (auto& i : a) cin >> i;
-    int sum = 0, l = 0, r = 0, ans = 0;
-    while(l < n) {
-        while (r < n && sum + a[r] <= t) {
-            ans = max(ans, r - l + 1);
-            sum += a[r++];
-        }
-        sum -= a[l++];
+    int n, s;
+    cin >> n >> s;
+
+    if (n <= 2)
+        cout << s / n << endl;
+    else {
+        n -= (n / 2) - !(n & 1);
+        cout << s / n << endl;
     }
-    cout << ans << endl;
 }
 
 int32_t main() {
@@ -43,7 +39,7 @@ int32_t main() {
     clock_t z = clock();
 
     int t = 1;
-    // cin >> t;
+    cin >> t;
     while (t--) solve();
 
     cerr << "Run Time : " << ((double)(clock() - z) / CLOCKS_PER_SEC) << "s" << endl;

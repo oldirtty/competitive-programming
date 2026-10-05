@@ -1,7 +1,7 @@
 /**
- * Contest : Codeforces Round 1013 (Div. 3)
- * Problem : 2091D. Place of the Olympiad
- * Link    : https://codeforces.com/problemset/problem/2091/D
+ * Contest : Codeforces Round 481 (Div. 3)
+ * Problem : 978C. Letters
+ * Link    : https://codeforces.com/problemset/problem/978/C
  */
 
 #include <bits/stdc++.h>
@@ -22,32 +22,22 @@ void __f(const char* names, Arg1&& arg1, Args&&... args) {
     __f(comma + 1, args...);
 }
 
-int n, m, k;
+void solve() {
+    int n, m;
+    cin >> n >> m;
 
-bool valid(int x) {
-    return n * (x * (m / (x + 1)) + m % (x + 1)) >= k;
-}
-
-int bs() {
-    int l = 1, r = m;
-
-    while (l <= r) {
-        int mid = l + (r - l) / 2;
-
-        if (valid(mid)) {
-            r = mid - 1;
-        }
-        else {
-            l = mid + 1;
-        }
+    vector<int> pref(n + 1);
+    for (int i = 1; i <= n; ++i) {
+        cin >> pref[i];
+        pref[i] += pref[i - 1];
     }
 
-    return l;
-}
+    while (m--) {
+        int x; cin >> x;
+        auto i = lower_bound(pref.begin(), pref.end(), x) - pref.begin();
 
-void solve() {
-    cin >> n >> m >> k;
-    cout << bs() << endl;
+        cout << i << " " << x - pref[i - 1] << endl;
+    }
 }
 
 int32_t main() {
@@ -55,7 +45,7 @@ int32_t main() {
     clock_t z = clock();
 
     int t = 1;
-    cin >> t;
+    // cin >> t;
     while (t--) solve();
 
     cerr << "Run Time : " << ((double)(clock() - z) / CLOCKS_PER_SEC) << "s" << endl;

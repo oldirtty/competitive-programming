@@ -1,3 +1,9 @@
+/**
+ * Contest : Codeforces Round 898 (Div. 4)
+ * Problem : 1873D. 1D Eraser
+ * Link    : https://codeforces.com/problemset/problem/1873/D
+ */
+
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -6,29 +12,27 @@ using namespace std;
 
 template <typename Arg1>
 void __f(const char* name, Arg1&& arg1) {
-    cout << name << " : " << arg1 << endl;
+    cerr << name << " : " << arg1 << endl;
 }
 template <typename Arg1, typename... Args>
 void __f(const char* names, Arg1&& arg1, Args&&... args) {
     const char* comma = strchr(names + 1, ',');
-    cout.write(names, comma - names) << " : " << arg1 << " | ";
+    cerr.write(names, comma - names) << " : " << arg1 << " | ";
     __f(comma + 1, args...);
 }
 
 void solve() {
-    int n, c;
-    cin >> n >> c;
-    map<int, int> mp;
+    int n, k;
+    cin >> n >> k;
+    string s; cin >> s;
 
-    int v[n];
-    for (auto& i : v) {
-        cin >> i;
-        mp[i]++;
-    }
-
-    int ans = 0;
-    for (auto& [v, cnt] : mp) {
-        ans += min(cnt, c);
+    int ans = 0, i = 0;
+    while (i < n) {
+        if (s[i] == 'B') {
+            ans++;
+            i += k;
+        }
+        else ++i;
     }
     cout << ans << endl;
 }

@@ -1,49 +1,50 @@
-/*
- * Contest : Codeforces
- * Problem : 706B - Interesting drink
- * Link    : https://codeforces.com/problemset/problem/706/B/
+/**
+ * Contest : Codeforces Round 367 (Div. 2)
+ * Problem : 706B. Interesting drink
+ * Link    : https://codeforces.com/problemset/problem/706/B
  */
 
 #include <bits/stdc++.h>
 using namespace std;
-using ll = long long;
 
-#define fastio ios::sync_with_stdio(0); cin.tie(0);
+#define dbg(...) __f(#__VA_ARGS__, __VA_ARGS__)
+#define endl '\n'
+#define int long long
 
-ll n, q, v[112345], x;
-
-ll bs(ll x) {
-  ll l = 0, r = n - 1, m;
-
-  while (l <= r) {
-    m = l + (r - l) / 2;
-
-    if (v[m] <= x) {
-      l = m + 1;
-    }
-    else {
-      r = m - 1;
-    }
-  }
-
-  return l;
+template <typename Arg1>
+void __f(const char* name, Arg1&& arg1) {
+    cout << name << " : " << arg1 << endl;
+}
+template <typename Arg1, typename... Args>
+void __f(const char* names, Arg1&& arg1, Args&&... args) {
+    const char* comma = strchr(names + 1, ',');
+    cout.write(names, comma - names) << " : " << arg1 << " | ";
+    __f(comma + 1, args...);
 }
 
-int main() {
-  fastio
+void solve() {
+    int n; cin >> n;
+    vector<int> a(n);
+    for (auto& i : a) cin >> i;
+    sort(a.begin(), a.end());
 
+    int q; cin >> q;
+    while (q--) {
+        int x; cin >> x;
+        auto i = upper_bound(a.begin(), a.end(), x) - a.begin();
+        cout << i << endl;
+    }
+}
 
-  scanf("%lli", &n);
+int32_t main() {
+    ios_base::sync_with_stdio(0); cin.tie(0);
+    clock_t z = clock();
 
-  for (int i = 0; i < n; i++) scanf("%lli", &v[i]);
-  sort(v, v + n);
+    int t = 1;
+    // cin >> t;
+    while (t--) solve();
 
-  scanf("%lli", &q);
-  while (q--) {
-    scanf("%lli", &x);
+    cerr << "Run Time : " << ((double)(clock() - z) / CLOCKS_PER_SEC) << "s" << endl;
 
-    printf("%lli\n", bs(x));
-  }
-
-  return 0;
+    return 0;
 }

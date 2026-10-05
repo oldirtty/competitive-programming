@@ -1,7 +1,7 @@
 /**
- * Contest : Codeforces Round 1013 (Div. 3)
- * Problem : 2091D. Place of the Olympiad
- * Link    : https://codeforces.com/problemset/problem/2091/D
+ * Contest : SPOJ
+ * Problem : Eko
+ * Link    : https://vjudge.net/problem/SPOJ-EKO
  */
 
 #include <bits/stdc++.h>
@@ -22,40 +22,47 @@ void __f(const char* names, Arg1&& arg1, Args&&... args) {
     __f(comma + 1, args...);
 }
 
-int n, m, k;
+const int N = 1e6+1;
+int n, m, a[N];
 
 bool valid(int x) {
-    return n * (x * (m / (x + 1)) + m % (x + 1)) >= k;
+    int sum = 0;
+
+    for (int i = 0; i < n; ++i) {
+        if (a[i] > x) sum += a[i] - x;
+        // if (sum >= m) return true;
+    }
+    return sum >= m;
 }
 
 int bs() {
-    int l = 1, r = m;
+    int l = 0, r = *max_element(a, a + n);
 
     while (l <= r) {
-        int mid = l + (r - l) / 2;
+        int mid =  l + (r - l) / 2;
 
         if (valid(mid)) {
-            r = mid - 1;
-        }
-        else {
             l = mid + 1;
         }
+        else {
+            r = mid - 1;
+        }
     }
-
-    return l;
+    return r;
 }
 
 void solve() {
-    cin >> n >> m >> k;
+    cin >> n >> m;
+    for (int i = 0; i < n; ++i) cin >> a[i];
     cout << bs() << endl;
 }
 
 int32_t main() {
-    ios_base::sync_with_stdio(0); cin.tie(0);
+    // ios_base::sync_with_stdio(0); cin.tie(0);
     clock_t z = clock();
 
     int t = 1;
-    cin >> t;
+    // cin >> t;
     while (t--) solve();
 
     cerr << "Run Time : " << ((double)(clock() - z) / CLOCKS_PER_SEC) << "s" << endl;
