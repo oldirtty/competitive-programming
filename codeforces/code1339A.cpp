@@ -1,8 +1,15 @@
+/**
+ * Contest : Codeforces Round 633 (Div. 2)
+ * Problem : 1339A. Filling Diamonds
+ * Link    : https://codeforces.com/problemset/problem/1339/A
+ */
+
 #include <bits/stdc++.h>
 using namespace std;
 
 #define dbg(...) __f(#__VA_ARGS__, __VA_ARGS__)
 #define endl '\n'
+#define int long long
 
 template <typename Arg1>
 void __f(const char* name, Arg1&& arg1) {
@@ -16,21 +23,8 @@ void __f(const char* names, Arg1&& arg1, Args&&... args) {
 }
 
 void solve() {
-    string s; cin >> s;
-    int freq['z'-'a'+1] = {0};
-
-    int maior = 0;
-    char l = 'a';
-    for (auto& c : s) {
-        freq[c-'a']++;
-        if (freq[c-'a'] >= maior) {
-            maior = freq[c-'a'];
-            l = max(l,c);
-        }
-    };
-    for (int i = 0; i < maior; ++i)
-        cout << l;
-    cout << endl;
+    int n; cin >> n;
+    cout << n << endl;
 }
 
 int32_t main() {
@@ -38,7 +32,7 @@ int32_t main() {
     clock_t z = clock();
 
     int t = 1;
-    // cin >> t;
+    cin >> t;
     while (t--) solve();
 
     cerr << "Run Time : " << ((double)(clock() - z) / CLOCKS_PER_SEC) << "s" << endl;

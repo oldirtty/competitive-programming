@@ -1,37 +1,42 @@
+/**
+ * Contest : Codeforces Round 823 (Div. 2)
+ * Problem : 1730A. Planets
+ * Link    : https://codeforces.com/problemset/problem/1730/A
+ */
+
 #include <bits/stdc++.h>
 using namespace std;
 
 #define dbg(...) __f(#__VA_ARGS__, __VA_ARGS__)
 #define endl '\n'
-#define int long long
 
 template <typename Arg1>
 void __f(const char* name, Arg1&& arg1) {
-    cerr << name << " : " << arg1 << endl;
+    cout << name << " : " << arg1 << endl;
 }
 template <typename Arg1, typename... Args>
 void __f(const char* names, Arg1&& arg1, Args&&... args) {
     const char* comma = strchr(names + 1, ',');
-    cerr.write(names, comma - names) << " : " << arg1 << " | ";
+    cout.write(names, comma - names) << " : " << arg1 << " | ";
     __f(comma + 1, args...);
 }
 
 void solve() {
-    int n, q;
-    cin >> n >> q;
-   vector<int> v(n+1), pref(n+1);
-    for (int i = 1; i <= n; ++i) {
-        cin >> v[i];
-        pref[i] = pref[i-1] + v[i];
-    }
-    while (q--){
-        int l, r, k;
-        cin >> l >> r >> k;
+    int n, c;
+    cin >> n >> c;
+    map<int, int> mp;
 
-        int rm = pref[r]-pref[l-1];
-        int sum = (r-l+1)*k + pref[n] - rm;
-        cout << (sum&1? "YES" : "NO") << endl;
+    int v[n];
+    for (auto& i : v) {
+        cin >> i;
+        mp[i]++;
     }
+
+    int ans = 0;
+    for (auto& [v, cnt] : mp) {
+        ans += min(cnt, c);
+    }
+    cout << ans << endl;
 }
 
 int32_t main() {

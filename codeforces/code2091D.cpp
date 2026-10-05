@@ -13,38 +13,38 @@ using ll = long long;
 ll tc, n, m, k;
 
 ll f(ll x) {
-  return n * (x * (m / (x + 1)) + m % (x + 1));
+    return n * (x * (m / (x + 1)) + m % (x + 1));
 }
 
 ll bs() {
-  ll l = 1, r = m, mid, ans = -1;
+    ll l = 1, r = m, mid, ans = -1;
 
-  while (l <= r) {
-    mid = l + (r - l) / 2;
+    while (l <= r) {
+        mid = l + (r - l) / 2;
 
-    fprintf(stderr, "f(%lli) = %lli\n", mid, f(mid));
+        fprintf(stderr, "f(%lli) = %lli\n", mid, f(mid));
 
-    if (f(mid) >= k) {
-      ans = mid;
-      r = mid - 1;
+        if (f(mid) >= k) {
+            ans = mid;
+            r = mid - 1;
+        }
+        else {
+            l = mid + 1;
+        }
     }
-    else {
-      l = mid + 1;
-    }
-  }
 
-  return ans;
+    return ans;
 }
 
 int main() {
-  fastio cin >> tc;
+    fastio cin >> tc;
 
-  while (tc--) {
-    cin >> n >> m >> k;
+    while (tc--) {
+        cin >> n >> m >> k;
 
-    cout << bs() << '\n';
-    cerr << "----------------\n";
-  }
+        cout << bs() << '\n';
+        cerr << "----------------\n";
+    }
 
-  return 0;
+    return 0;
 }

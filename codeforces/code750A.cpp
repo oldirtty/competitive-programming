@@ -1,3 +1,9 @@
+/**
+ * Contest : Good Bye 2016
+ * Problem : 750A. New Year and Hurry
+ * Link    : https://codeforces.com/problemset/problem/750/A
+ */
+
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -15,32 +21,18 @@ void __f(const char* names, Arg1&& arg1, Args&&... args) {
     __f(comma + 1, args...);
 }
 
+const int N = 10;
+int t[N + 1];
 void solve() {
-    int n; cin >> n;
-    vector<bool> ans(n);
-    vector<int> v(n);
+    for (int i = 1; i <= N; ++i) t[i] = t[i - 1] + 5 * i;
 
-    for(auto& i : v) cin >> i;
+    int n, k;
+    cin >> n >> k;
 
-    // prefix
-    ans[0] = ans[n-1] = true;
-    for (int i = 1, mini = v[0]; i < n-1; ++i) {
-        if (v[i] < mini) {
-            ans[i] = true;
-            mini = v[i];
-        }
-    }
-
-    for (int i = n-1, maxi = v[n-1]; i > 0; --i) {
-        if (v[i] > maxi) {
-            ans[i] = true;
-            maxi = v[i];
-        }
-    }
-
-    for (int i = 0; i < n; ++i)
-        cout << ans[i];
-    cout << endl;
+    int rest = 4 * 60 - k;
+    auto it = upper_bound(t, t + N, rest);
+    --it;
+    cout << min(n, (int)(it - t)) << endl;
 }
 
 int32_t main() {
@@ -48,7 +40,7 @@ int32_t main() {
     clock_t z = clock();
 
     int t = 1;
-    cin >> t;
+    // cin >> t;
     while (t--) solve();
 
     cerr << "Run Time : " << ((double)(clock() - z) / CLOCKS_PER_SEC) << "s" << endl;

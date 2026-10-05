@@ -1,3 +1,9 @@
+/**
+ * Contest : Codeforces Round 835 (Div. 4)
+ * Problem : 1760C. Advantage
+ * Link    : https://codeforces.com/problemset/problem/1760/C
+ */
+
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -15,18 +21,27 @@ void __f(const char* names, Arg1&& arg1, Args&&... args) {
     __f(comma + 1, args...);
 }
 
-const int N = 10;
-int t[N+1];
 void solve() {
-    for (int i = 1; i <= N; ++i) t[i] = t[i-1] + 5*i;
+    int n; cin >> n;
+    int v[n];
+    int maior = 0, qseMaior = 0;
+    for (auto& i : v) {
+        cin >> i;
+        if (i >= maior) {
+            qseMaior = maior;
+            maior = i;
+        }
+        else if (i >= qseMaior) {
+            qseMaior = i;
+        }
+    }
 
-    int n, k;
-    cin >> n >> k;
-
-    int rest = 4*60 - k;
-    auto it = upper_bound(t, t+N, rest);
-    --it;
-    cout << min(n, (int)(it-t)) << endl;
+    for (auto& i : v) {
+        if (i == maior)
+            cout << i - qseMaior << " ";
+        else cout << i - maior << " ";
+    }
+    cout << endl;
 }
 
 int32_t main() {
@@ -34,7 +49,7 @@ int32_t main() {
     clock_t z = clock();
 
     int t = 1;
-    // cin >> t;
+    cin >> t;
     while (t--) solve();
 
     cerr << "Run Time : " << ((double)(clock() - z) / CLOCKS_PER_SEC) << "s" << endl;
