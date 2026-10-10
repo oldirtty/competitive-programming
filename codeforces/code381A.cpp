@@ -1,7 +1,7 @@
-/*
- * Contest : Codeforces
- * Problem : 1133C - Balanced Team
- * Link    : https://codeforces.com/problemset/problem/1133/C
+/**
+ * Contest : Codeforces Round 223 (Div. 2)
+ * Problem : 381A. Sereja and Dima
+ * Link    : https://codeforces.com/problemset/problem/381/A
  */
 
 #include <bits/stdc++.h>
@@ -9,16 +9,15 @@ using namespace std;
 
 #define dbg(...) __f(#__VA_ARGS__, __VA_ARGS__)
 #define endl '\n'
-#define int long long
 
 template <typename Arg1>
 void __f(const char* name, Arg1&& arg1) {
-    cout << name << " : " << arg1 << endl;
+    cerr << name << " : " << arg1 << endl;
 }
 template <typename Arg1, typename... Args>
 void __f(const char* names, Arg1&& arg1, Args&&... args) {
     const char* comma = strchr(names + 1, ',');
-    cout.write(names, comma - names) << " : " << arg1 << " | ";
+    cerr.write(names, comma - names) << " : " << arg1 << " | ";
     __f(comma + 1, args...);
 }
 
@@ -26,16 +25,22 @@ void solve() {
     int n; cin >> n;
     int v[n];
     for (auto& i : v) cin >> i;
-    sort(v, v + n);
-    int ans = 0;
-    for (int l = 0, r = 0; l < n;) {
-        while (r < n && v[r] - v[l] <= 5) {
-            r++;
-            ans = max(ans, r - l);
+    int l = 0, r =  n - 1, a = 0, b = 0;
+    bool turn = true;
+    while (l <= r) {
+        if (v[l] > v[r]) {
+            if (turn) a += v[l];
+            else b += v[l];
+            l++;
         }
-        l++;
+        else {
+            if (turn) a += v[r];
+            else b += v[r];
+            r--;
+        }
+        turn = !turn;
     }
-    cout << ans  << endl;
+    cout << a << ' ' << b << endl;
 }
 
 int32_t main() {

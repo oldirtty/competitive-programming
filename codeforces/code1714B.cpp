@@ -1,7 +1,7 @@
-/*
- * Contest : Codeforces
- * Problem : 1133C - Balanced Team
- * Link    : https://codeforces.com/problemset/problem/1133/C
+/**
+ * Contest : Codeforces Round 811 (Div. 3)
+ * Problem : 1714B. Remove Prefix
+ * Link    : https://codeforces.com/problemset/problem/1714/B
  */
 
 #include <bits/stdc++.h>
@@ -9,33 +9,31 @@ using namespace std;
 
 #define dbg(...) __f(#__VA_ARGS__, __VA_ARGS__)
 #define endl '\n'
-#define int long long
 
 template <typename Arg1>
 void __f(const char* name, Arg1&& arg1) {
-    cout << name << " : " << arg1 << endl;
+    cerr << name << " : " << arg1 << endl;
 }
 template <typename Arg1, typename... Args>
 void __f(const char* names, Arg1&& arg1, Args&&... args) {
     const char* comma = strchr(names + 1, ',');
-    cout.write(names, comma - names) << " : " << arg1 << " | ";
+    cerr.write(names, comma - names) << " : " << arg1 << " | ";
     __f(comma + 1, args...);
 }
 
 void solve() {
     int n; cin >> n;
-    int v[n];
-    for (auto& i : v) cin >> i;
-    sort(v, v + n);
-    int ans = 0;
-    for (int l = 0, r = 0; l < n;) {
-        while (r < n && v[r] - v[l] <= 5) {
-            r++;
-            ans = max(ans, r - l);
-        }
-        l++;
+    int a[n];
+    for (auto& i : a) cin >> i;
+
+    vector<int> last(n + 1), pos(n + 1);
+    for (int i = 0; i < n; ++i) {
+        int x = a[i];
+        if (pos[x])
+            last[i] = pos[x];
+        pos[x] = i + 1;
     }
-    cout << ans  << endl;
+    cout << *max_element(last.begin(), last.end()) << endl;
 }
 
 int32_t main() {
@@ -43,7 +41,7 @@ int32_t main() {
     clock_t z = clock();
 
     int t = 1;
-    // cin >> t;
+    cin >> t;
     while (t--) solve();
 
     cerr << "Run Time : " << ((double)(clock() - z) / CLOCKS_PER_SEC) << "s" << endl;

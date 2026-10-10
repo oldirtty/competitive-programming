@@ -9,6 +9,7 @@ using namespace std;
 
 #define dbg(...) __f(#__VA_ARGS__, __VA_ARGS__)
 #define endl '\n'
+#define int long long
 
 template <typename Arg1>
 void __f(const char* name, Arg1&& arg1) {
@@ -25,16 +26,18 @@ void solve() {
     int n, k;
     cin >> n >> k;
 
-    vector<int> pref(n + 1);
-    for (int i = 1; i <= n; ++i) {
-        char c; cin >> c;
-        pref[i] = pref[i - 1] + (c == 'W');
+    string s; cin >> s;
+
+    int cnt = 0;
+    for (int i = 0; i < k; ++i)
+        cnt += (s[i] == 'W');
+    int ans = cnt;
+    for (int i = k; i < n; ++i) {
+        cnt -= (s[i - k] == 'W');
+        cnt += (s[i] == 'W');
+        ans = min(ans, cnt);
     }
 
-    int ans = k;
-    for (int i = k; i <= n; ++i) {
-        ans = min(ans, pref[i] - pref[i - k]);
-    }
     cout << ans << endl;
 }
 
