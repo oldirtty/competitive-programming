@@ -1,44 +1,57 @@
-/*
- * Contest : Codeforces
- * Problem : 489B - BerSU Ball
+/**
+ * Contest : Codeforces Round 277.5 (Div. 2)
+ * Problem : 489B. BerSU Ball
  * Link    : https://codeforces.com/problemset/problem/489/B
  */
 
 #include <bits/stdc++.h>
 using namespace std;
-using ll = long long;
 
-#define fastio ios::sync_with_stdio(0); cin.tie(0);
+#define dbg(...) __f(#__VA_ARGS__, __VA_ARGS__)
+#define endl '\n'
 
-int main() {
-  fastio
-  int n, m;
+template <typename Arg1>
+void __f(const char* name, Arg1&& arg1) {
+    cerr << name << " : " << arg1 << endl;
+}
+template <typename Arg1, typename... Args>
+void __f(const char* names, Arg1&& arg1, Args&&... args) {
+    const char* comma = strchr(names + 1, ',');
+    cerr.write(names, comma - names) << " : " << arg1 << " | ";
+    __f(comma + 1, args...);
+}
 
-  cin >> n;
-  int b[n];
-  for (auto &e : b) cin >> e;
+const int N = 101;
+int a[N], b[N];
+void solve() {
+    int n; cin >> n;
+    for (int i = 0; i < n; ++i) cin >> a[i];
+    int m; cin >> m;
+    for (int i = 0; i < m; ++i) cin >> b[i];
 
-  cin >> m;
-  int g[m];
-  for (auto &e : g) cin >> e;
+    sort(a, a + n);
+    sort(b, b + m);
 
-  sort(b, b + n);
-  sort(g, g + m);
-
-  int cnt = 0, i = 0, j = 0;
-  while (i < n && j < m) {
-    if (abs(b[i] - g[j]) <= 1) {
-      cnt++;
-      i++;
-      j++;
+    int i = 0, j = 0, cnt = 0;
+    while (i < n && j < m) {
+        if (abs(a[i] - b[j]) <= 1) {
+            i++, j++, cnt++;
+        }
+        else if (a[i] < b[j]) i++;
+        else if (b[j] < a[i]) j++;
     }
-    else if (b[i] < g[j])
-      i++;
-    else
-      j++;
-  }
+    cout << cnt << endl;
+}
 
-  cout << cnt << "\n\n";
+int32_t main() {
+    ios_base::sync_with_stdio(0); cin.tie(0);
+    clock_t z = clock();
 
-  return 0;
+    int t = 1;
+    // cin >> t;
+    while (t--) solve();
+
+    cerr << "Run Time : " << ((double)(clock() - z) / CLOCKS_PER_SEC) << "s" << endl;
+
+    return 0;
 }
